@@ -4,6 +4,5 @@
 
 ## Installation
 ``` apm install minimap-hide ```
-or
 
-Search for ```minimap-hide``` within package search in the Settings View.
+[![apm install {package}](http://tcyrus.me/apm/minimap-hide.svg?theme=solarized-dark)](https://atom.io/packages/minimap-hide)
