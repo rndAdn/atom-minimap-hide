@@ -1,12 +1,12 @@
-{CompositeDisposable} = require 'atom'
+{TextEditor} = require 'atom'
 
 module.exports =
   active: false
+  activeEditor: null
 
   isActive: -> @active
 
-  activate: (state) ->
-    @subscriptions = new CompositeDisposable
+  activate: ->
 
   consumeMinimapServiceV1: (@minimap) ->
     @minimap.registerPlugin 'minimap-hide', this
@@ -17,25 +17,29 @@ module.exports =
 
   activatePlugin: ->
     return if @active
-
     @active = true
 
-    @minimapsSubscription = @minimap.observeMinimaps (minimap) =>
-      minimapElement = atom.views.getView(minimap)
-      editor= minimap.getTextEditor()
-      @subscriptions.add atom.workspace.getActivePane().onDidChangeActive =>
-        @handle_focus(minimapElement, editor)
+    for editor in atom.workspace.getTextEditors()
+      @hide(editor)
 
-
-  handle_focus: (minim_el, editor) ->
-    if editor != atom.workspace.getActiveTextEditor()
-      minim_el.classList.add('unfocus_pane')
-    else
-      minim_el.classList.remove('unfocus_pane')
+    @changePaneSubscription = atom.workspace.observeActivePaneItem((item) =>
+      @hide(@activeEditor) if @activeEditor
+      @activeEditor = null
+      return unless item instanceof TextEditor
+      @show(item)
+      @activeEditor = item
+    )
 
   deactivatePlugin: ->
     return unless @active
 
     @active = false
-    @minimapsSubscription.dispose()
-    @subscriptions.dispose()
+    @changePaneSubscription.dispose()
+
+  show: (editor) ->
+    minimapElement = atom.views.getView(@minimap.minimapForEditor(editor))
+    minimapElement?.classList.remove('unfocus_pane')
+
+  hide: (editor) ->
+    minimapElement = atom.views.getView(@minimap.minimapForEditor(editor))
+    minimapElement?.classList.add('unfocus_pane')
