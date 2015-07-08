@@ -23,7 +23,7 @@ module.exports =
       @hide(editor)
 
     @changePaneSubscription = atom.workspace.observeActivePaneItem((item) =>
-      @hide(@activeEditor) if @activeEditor
+      @hide(@activeEditor) if @activeEditor?
       @activeEditor = null
       return unless item instanceof TextEditor
       @show(item)
@@ -38,8 +38,10 @@ module.exports =
 
   show: (editor) ->
     minimapElement = atom.views.getView(@minimap.minimapForEditor(editor))
-    minimapElement?.classList.remove('unfocus_pane')
+    minimapElement?.attach()
 
   hide: (editor) ->
     minimapElement = atom.views.getView(@minimap.minimapForEditor(editor))
-    minimapElement?.classList.add('unfocus_pane')
+    # MinimapElement::detachedCallback is not called in the case of display:none
+    if minimapElement?.offsetParent isnt null
+      minimapElement?.detach()
