@@ -2,8 +2,8 @@
   "name": "minimap-hide",
   "main": "./lib/minimap-hide",
   "version": "0.0.0",
-  "description": "A short description of your package",
-  "repository": "https://github.com/atom/minimap-hide",
+  "description": "Hide the minimap when pane isn't focus",
+  "repository": "https://github.com/T-800/atom-minimap-hide",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
