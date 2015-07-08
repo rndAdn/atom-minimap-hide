@@ -28,10 +28,10 @@ module.exports =
 
 
   handle_focus: (minim_el, editor) ->
-      if editor != atom.workspace.getActiveTextEditor()
-        minim_el.classList.add('unfocus_pane')
-      else
-        minim_el.classList.remove('unfocus_pane')
+    if editor != atom.workspace.getActiveTextEditor()
+      minim_el.classList.add('unfocus_pane')
+    else
+      minim_el.classList.remove('unfocus_pane')
 
   deactivatePlugin: ->
     return unless @active
