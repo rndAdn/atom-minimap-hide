@@ -1,7 +1,7 @@
 # minimap-hide package
 
-##Hide the minimap when pane isn't focus
+## Hide the minimap when pane isn't focus
 
 ## Installation
 
-[![apm install {package}](http://tcyrus.me/apm/minimap-hide.svg?theme=solarized-dark)](https://atom.io/packages/minimap-hide)
+[![apm install minimap-hide](https://apm-badges.herokuapp.com/apm/minimap-hide.svg?theme=solarized-dark)](https://atom.io/packages/minimap-hide)
